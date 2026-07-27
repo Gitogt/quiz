@@ -1,9 +1,10 @@
 const card = document.getElementById("card");
 const languageBtn = document.getElementById("languageBtn");
+const hearts = document.getElementById("hearts");
 
 
 // ==========================
-// EMAILJS SETUP
+// EMAILJS
 // ==========================
 
 emailjs.init({
@@ -11,6 +12,9 @@ emailjs.init({
 });
 
 
+// ==========================
+// VARIABLES
+// ==========================
 
 let language = "sq";
 
@@ -26,13 +30,14 @@ let currentPage = "home";
 
 
 
+
 // ==========================
 // TRANSLATIONS
 // ==========================
 
 const t = {
 
-sq:{
+sq: {
 
 question:
 "A do të dalësh në një takim me mua? 💖",
@@ -62,8 +67,7 @@ week:
 "Këtë javë 💗",
 
 surprise:
-"Më surprizo 🎁",
-
+"Me surprizo 🎁",
 
 
 calendar:
@@ -72,35 +76,6 @@ calendar:
 
 time:
 "Zgjidh orarin ⏰",
-
-
-morning:
-"Mëngjes 🌅",
-
-morningTime:
-"08:00 - 10:30",
-
-
-afternoon:
-"Drekë / Pasdite ☀️",
-
-afternoonTime:
-"12:00 - 16:30",
-
-
-evening:
-"Mbrëmje 🌆",
-
-eveningTime:
-"17:00 - 21:00",
-
-
-night:
-"Natë vonë 🌙",
-
-nightTime:
-"21:30 - 00:00",
-
 
 
 activity:
@@ -126,7 +101,6 @@ cook:
 "Gatuajmë bashkë 👩‍🍳",
 
 
-
 date:
 "Shihemi më:",
 
@@ -134,17 +108,14 @@ date:
 its:
 "YAY!! Është një takim! 🎉"
 
-
 },
 
 
 
-en:{
-
+en: {
 
 question:
 "Would you be my date? 💖",
-
 
 subtitle:
 "I have a special question for you...",
@@ -153,19 +124,15 @@ subtitle:
 yes:
 "YES 💗",
 
-
 no:
 "NO 🙈",
-
 
 
 when:
 "When can I steal you away? 💕",
 
-
 choose:
 "Choose an option:",
-
 
 
 tonight:
@@ -178,7 +145,6 @@ surprise:
 "Surprise me 🎁",
 
 
-
 calendar:
 "Choose the perfect day 📅",
 
@@ -187,39 +153,8 @@ time:
 "Pick a time ⏰",
 
 
-
-morning:
-"Morning 🌅",
-
-morningTime:
-"08:00 - 10:30",
-
-
-afternoon:
-"Lunch / Afternoon ☀️",
-
-afternoonTime:
-"12:00 - 16:30",
-
-
-evening:
-"Evening 🌆",
-
-eveningTime:
-"17:00 - 21:00",
-
-
-night:
-"Late night 🌙",
-
-nightTime:
-"21:30 - 00:00",
-
-
-
 activity:
 "What sounds sweet? 💕",
-
 
 
 coffee:
@@ -241,7 +176,6 @@ cook:
 "Cook together 👩‍🍳",
 
 
-
 date:
 "See you on:",
 
@@ -249,164 +183,102 @@ date:
 its:
 "YAY!! It's a date! 🎉"
 
-
 }
 
 };
 
+
+
+
+
 // ==========================
-// HEARTS ANIMATION
+// HEART ANIMATION
 // ==========================
-
-
-const hearts = document.getElementById("hearts");
-
 
 for(let i = 0; i < 40; i++){
 
+    let heart = document.createElement("div");
 
-let heart = document.createElement("div");
+    heart.className = "heart";
 
+    heart.innerHTML = "❤";
 
-heart.className = "heart";
+    heart.style.left =
+    Math.random()*100 + "vw";
 
+    heart.style.fontSize =
+    15 + Math.random()*25 + "px";
 
-heart.innerHTML = "❤";
+    heart.style.animationDuration =
+    5 + Math.random()*6 + "s";
 
+    heart.style.animationDelay =
+    Math.random()*5 + "s";
 
-heart.style.left =
-Math.random()*100 + "vw";
-
-
-heart.style.fontSize =
-15 + Math.random()*25 + "px";
-
-
-heart.style.animationDuration =
-5 + Math.random()*6 + "s";
-
-
-heart.style.animationDelay =
-Math.random()*5 + "s";
-
-
-hearts.appendChild(heart);
-
+    hearts.appendChild(heart);
 
 }
-
 
 
 
 
 
 // ==========================
-// LANGUAGE SWITCH
+// LANGUAGE BUTTON FIX
 // ==========================
 
-
-languageBtn.onclick = function(){
-
+languageBtn.onclick = () => {
 
 
-if(language === "sq"){
+    language = language === "sq" ? "en" : "sq";
 
 
-language = "en";
+    languageBtn.innerHTML =
+    language === "sq"
+    ? "🇬🇧 English"
+    : "🇦🇱 Shqip";
 
 
-languageBtn.innerHTML =
-"🇦🇱 Shqip";
-
-
-}
-
-else{
-
-
-language = "sq";
-
-
-languageBtn.innerHTML =
-"🇬🇧 English";
-
-
-}
-
-
-
-renderPage();
-
+    renderPage();
 
 };
-
-
-
-
-
-
-
 
 // ==========================
 // PAGE SYSTEM
 // ==========================
 
-
 function renderPage(){
 
 
+    switch(currentPage){
 
-if(currentPage === "home"){
-
-
-home();
-
-
-}
+        case "home":
+            home();
+            break;
 
 
-
-if(currentPage === "choose"){
-
-
-choose();
+        case "choose":
+            choose();
+            break;
 
 
-}
+        case "calendar":
+            renderCalendar();
+            break;
 
 
-
-if(currentPage === "calendar"){
-
-
-renderCalendar();
+        case "time":
+            showTimes();
+            break;
 
 
-}
+        case "activity":
+            showActivities();
+            break;
 
-
-
-if(currentPage === "time"){
-
-
-showTimes();
-
+    }
 
 }
-
-
-
-if(currentPage === "activity"){
-
-
-showActivities();
-
-
-}
-
-
-}
-
 
 
 
@@ -414,7 +286,6 @@ showActivities();
 // ==========================
 // HOME PAGE
 // ==========================
-
 
 function home(){
 
@@ -429,8 +300,6 @@ card.innerHTML = `
 </div>
 
 
-
-
 <h1>
 
 ${t[language].question}
@@ -438,15 +307,11 @@ ${t[language].question}
 </h1>
 
 
-
-
 <p>
 
 ${t[language].subtitle}
 
 </p>
-
-
 
 
 
@@ -460,13 +325,11 @@ ${t[language].yes}
 </button>
 
 
-
 <button id="noBtn" class="no-btn">
 
 ${t[language].no}
 
 </button>
-
 
 
 </div>
@@ -477,14 +340,17 @@ ${t[language].no}
 
 
 
+// PO BUTTON FIX
 
-document.getElementById("yesBtn").onclick = function(){
-
-
-currentPage = "choose";
+const yesBtn = document.getElementById("yesBtn");
 
 
-renderPage();
+yesBtn.onclick = function(){
+
+
+    currentPage = "choose";
+
+    renderPage();
 
 
 };
@@ -492,20 +358,20 @@ renderPage();
 
 
 
+// JO BUTTON
 
-let noBtn = document.getElementById("noBtn");
-
+const noBtn = document.getElementById("noBtn");
 
 
 function moveNo(){
 
 
-noBtn.style.left =
-Math.random()*70 + "%";
+    noBtn.style.left =
+    Math.random()*70 + "%";
 
 
-noBtn.style.top =
-Math.random()*70 + "%";
+    noBtn.style.top =
+    Math.random()*70 + "%";
 
 
 }
@@ -539,12 +405,10 @@ moveNo
 // CHOOSE PAGE
 // ==========================
 
-
 function choose(){
 
 
 card.innerHTML = `
-
 
 
 <div class="teddy">
@@ -555,13 +419,11 @@ card.innerHTML = `
 
 
 
-
 <h1>
 
 ${t[language].when}
 
 </h1>
-
 
 
 
@@ -575,72 +437,38 @@ ${t[language].choose}
 
 
 
-<div class="choice-card"
-
-onclick="openCalendar()">
-
-
+<div class="choice-card" onclick="openCalendar()">
 
 🌙
-
 <br>
-
 
 ${t[language].tonight}
 
-
-
 </div>
 
 
 
 
-
-
-
-<div class="choice-card"
-
-onclick="openCalendar()">
-
-
+<div class="choice-card" onclick="openCalendar()">
 
 💗
-
 <br>
-
 
 ${t[language].week}
 
-
-
 </div>
 
 
 
 
-
-
-
-
-
-<div class="choice-card"
-
-onclick="openCalendar()">
-
-
+<div class="choice-card" onclick="openCalendar()">
 
 🎁
-
 <br>
-
 
 ${t[language].surprise}
 
-
-
 </div>
-
-
 
 
 
@@ -655,9 +483,8 @@ ${t[language].surprise}
 
 
 
-
 // ==========================
-// CALENDAR
+// OPEN CALENDAR
 // ==========================
 
 
@@ -677,72 +504,45 @@ renderPage();
 
 
 
+// ==========================
+// CALENDAR
+// ==========================
+
 function renderCalendar(){
 
 
-
 let firstDay =
-
 new Date(
-
 currentYear,
-
 currentMonth,
-
 1
-
 ).getDay();
 
 
 
-
-
 let totalDays =
-
 new Date(
-
 currentYear,
-
 currentMonth + 1,
-
 0
-
 ).getDate();
 
 
 
 
-
 let monthName =
-
 new Date(
-
 currentYear,
-
 currentMonth
-
 )
-
 .toLocaleString(
-
 language === "sq"
-
-?
-
-"sq-AL"
-
-:
-
-"en-US",
-
+? "sq-AL"
+: "en-US",
 {
-
 month:"long"
-
 }
-
 );
-
 
 
 
@@ -751,12 +551,9 @@ let days = "";
 
 
 
-
-for(let i = 0; i < firstDay; i++){
-
+for(let i=0;i<firstDay;i++){
 
 days += `<div></div>`;
-
 
 }
 
@@ -765,68 +562,41 @@ days += `<div></div>`;
 
 let today = new Date();
 
-
-today.setHours(
-
-0,
-
-0,
-
-0,
-
-0
-
-);
-
-
+today.setHours(0,0,0,0);
 
 
 
 let maxDate = new Date();
 
-
 maxDate.setMonth(
-
 maxDate.getMonth()+3
-
 );
 
 
 
 
 
-for(let d = 1; d <= totalDays; d++){
-
+for(let d=1; d<=totalDays; d++){
 
 
 let date = new Date(
-
 currentYear,
-
 currentMonth,
-
 d
-
 );
-
-
 
 
 
 if(date < today || date > maxDate){
 
 
-
 days += `
-
 
 <div class="day disabled">
 
 ${d}
 
 </div>
-
-
 
 `;
 
@@ -835,35 +605,25 @@ ${d}
 else{
 
 
-
 days += `
 
-
-<div class="day"
-
-onclick="selectDay(${d})">
+<div class="day" onclick="selectDay(${d})">
 
 ${d}
 
 </div>
-
-
 
 `;
 
 }
 
 
-
 }
 
-// ==========================
-// CALENDAR CONTINUATION
-// ==========================
+
 
 
 card.innerHTML = `
-
 
 
 <div class="teddy">
@@ -871,8 +631,6 @@ card.innerHTML = `
 🧸
 
 </div>
-
-
 
 
 
@@ -885,7 +643,6 @@ ${t[language].calendar}
 
 
 
-
 <div class="calendar-box">
 
 
@@ -894,9 +651,7 @@ ${t[language].calendar}
 
 
 <button onclick="changeMonth(-1)">
-
 ‹
-
 </button>
 
 
@@ -913,9 +668,7 @@ ${currentYear}
 
 
 <button onclick="changeMonth(1)">
-
 ›
-
 </button>
 
 
@@ -929,17 +682,11 @@ ${currentYear}
 <div class="weekdays">
 
 <div>Hë</div>
-
 <div>Ma</div>
-
 <div>Më</div>
-
 <div>En</div>
-
 <div>Pr</div>
-
 <div>Sh</div>
-
 <div>Di</div>
 
 </div>
@@ -955,32 +702,19 @@ ${days}
 
 
 
-
 </div>
-
-
 
 
 `;
 
 
-
 }
-
-
-
-
-
-
-
 
 // ==========================
 // CHANGE MONTH
 // ==========================
 
-
 window.changeMonth = function(value){
-
 
 
 let newDate = new Date(
@@ -995,10 +729,7 @@ currentMonth + value,
 
 
 
-
 let today = new Date();
-
-
 
 
 
@@ -1014,17 +745,11 @@ today.getMonth(),
 
 
 
-
-
 let maxDate = new Date();
 
-
 maxDate.setMonth(
-
 maxDate.getMonth()+3
-
 );
-
 
 
 
@@ -1036,9 +761,6 @@ return;
 }
 
 
-
-
-
 if(newDate > maxDate){
 
 return;
@@ -1047,23 +769,16 @@ return;
 
 
 
-
-
 currentMonth = newDate.getMonth();
 
-
 currentYear = newDate.getFullYear();
-
-
 
 
 
 renderCalendar();
 
 
-
 };
-
 
 
 
@@ -1076,9 +791,7 @@ renderCalendar();
 // SELECT DATE
 // ==========================
 
-
 window.selectDay = function(day){
-
 
 
 selectedDate =
@@ -1097,15 +810,11 @@ currentMonth
 
 .toLocaleString(
 
-language==="sq"
+language === "sq"
 
-?
+? "sq-AL"
 
-"sq-AL"
-
-:
-
-"en-US",
+: "en-US",
 
 {
 
@@ -1123,16 +832,14 @@ currentYear;
 
 
 
-
-
 currentPage = "time";
 
 
 renderPage();
 
 
-
 };
+
 
 
 
@@ -1149,7 +856,6 @@ renderPage();
 function showTimes(){
 
 
-
 card.innerHTML = `
 
 
@@ -1163,13 +869,11 @@ card.innerHTML = `
 
 
 
-
 <h1>
 
 ${t[language].time}
 
 </h1>
-
 
 
 
@@ -1192,6 +896,7 @@ ${language==="sq" ? "Mëngjes" : "Morning"}
 
 08:00 - 10:30
 
+
 </div>
 
 
@@ -1211,6 +916,7 @@ ${language==="sq" ? "Drekë / Pasdite" : "Lunch / Afternoon"}
 <br>
 
 12:00 - 16:30
+
 
 </div>
 
@@ -1232,6 +938,7 @@ ${language==="sq" ? "Mbrëmje" : "Evening"}
 
 17:00 - 21:00
 
+
 </div>
 
 
@@ -1252,12 +959,13 @@ ${language==="sq" ? "Natë vonë" : "Late night"}
 
 21:30 - 00:00
 
-</div>
-
-
 
 </div>
 
+
+
+
+</div>
 
 
 `;
@@ -1265,6 +973,7 @@ ${language==="sq" ? "Natë vonë" : "Late night"}
 
 
 }
+
 
 
 
@@ -1292,13 +1001,13 @@ renderPage();
 
 
 
+
 // ==========================
 // ACTIVITY PAGE
 // ==========================
 
 
 function showActivities(){
-
 
 
 card.innerHTML = `
@@ -1314,13 +1023,11 @@ card.innerHTML = `
 
 
 
-
 <h1>
 
 ${t[language].activity}
 
 </h1>
-
 
 
 
@@ -1338,7 +1045,6 @@ ${t[language].coffee}
 
 
 
-
 <div class="choice-card"
 
 onclick="finish('${t[language].movie}')">
@@ -1346,7 +1052,6 @@ onclick="finish('${t[language].movie}')">
 ${t[language].movie}
 
 </div>
-
 
 
 
@@ -1362,7 +1067,6 @@ ${t[language].picnic}
 
 
 
-
 <div class="choice-card"
 
 onclick="finish('${t[language].netflix}')">
@@ -1374,7 +1078,6 @@ ${t[language].netflix}
 
 
 
-
 <div class="choice-card"
 
 onclick="finish('${t[language].walk}')">
@@ -1382,7 +1085,6 @@ onclick="finish('${t[language].walk}')">
 ${t[language].walk}
 
 </div>
-
 
 
 
@@ -1410,6 +1112,7 @@ ${t[language].cook}
 
 
 
+
 // ==========================
 // FINAL + EMAILJS
 // ==========================
@@ -1420,8 +1123,6 @@ window.finish = function(activity){
 
 
 selectedActivity = activity;
-
-
 
 
 
@@ -1463,7 +1164,6 @@ console.log("Email error:", error);
 
 
 
-
 card.innerHTML = `
 
 
@@ -1473,7 +1173,6 @@ card.innerHTML = `
 🧸❤️
 
 </div>
-
 
 
 
@@ -1492,7 +1191,6 @@ ${t[language].its}
 
 
 </h1>
-
 
 
 
@@ -1543,7 +1241,6 @@ ${t[language].date}
 
 
 </p>
-
 
 
 
