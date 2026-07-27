@@ -1,0 +1,818 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #ffd6e8,
+        #ffc1dc,
+        #ffb0d0
+    );
+
+}
+
+
+
+/* LANGUAGE BUTTON */
+
+.language-btn{
+
+    position:absolute;
+
+    top:25px;
+
+    right:25px;
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:40px;
+
+    background:
+    rgba(255,255,255,.75);
+
+    backdrop-filter:blur(15px);
+
+    color:#c2185b;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    z-index:100;
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,.12);
+
+}
+
+
+
+/* HEARTS */
+
+#hearts{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+}
+
+
+
+.heart{
+
+    position:absolute;
+
+    color:#ff4081;
+
+    opacity:.7;
+
+    animation:fall linear infinite;
+
+}
+
+
+
+@keyframes fall{
+
+
+from{
+
+transform:
+
+translateY(-100px)
+rotate(0deg);
+
+}
+
+
+to{
+
+transform:
+
+translateY(110vh)
+rotate(360deg);
+
+}
+
+
+}
+
+
+
+
+
+/* MAIN CARD */
+
+.app{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:20px;
+
+}
+
+
+
+.card{
+
+
+    width:95%;
+
+    max-width:520px;
+
+
+    padding:40px 30px;
+
+
+    text-align:center;
+
+
+    background:
+
+    rgba(255,255,255,.4);
+
+
+    backdrop-filter:blur(25px);
+
+
+    border-radius:45px;
+
+
+    border:
+
+    2px solid rgba(255,255,255,.6);
+
+
+
+    box-shadow:
+
+    0 30px 70px rgba(194,24,91,.25);
+
+
+
+    animation:
+
+    cardOpen .7s ease;
+
+
+}
+
+
+
+@keyframes cardOpen{
+
+
+from{
+
+opacity:0;
+
+transform:
+
+scale(.8)
+translateY(40px);
+
+}
+
+
+to{
+
+opacity:1;
+
+transform:
+
+scale(1)
+translateY(0);
+
+}
+
+
+}
+
+
+
+
+
+/* TEDDY */
+
+.teddy{
+
+    font-size:105px;
+
+    margin-bottom:15px;
+
+    animation:
+
+    teddyMove 3s infinite ease-in-out;
+
+}
+
+
+
+@keyframes teddyMove{
+
+
+50%{
+
+transform:
+
+translateY(-15px);
+
+}
+
+}
+
+
+
+
+
+/* TEXT */
+
+
+h1{
+
+    font-family:'Baloo 2',cursive;
+
+    color:#c2185b;
+
+    font-size:38px;
+
+    line-height:1.25;
+
+}
+
+
+
+p{
+
+    color:#666;
+
+    margin:20px 0;
+
+    font-size:17px;
+
+}
+
+
+
+
+
+/* BUTTONS */
+
+.buttons{
+
+    height:100px;
+
+    position:relative;
+
+}
+
+
+
+.yes-btn,
+.no-btn{
+
+
+    padding:16px 40px;
+
+    border:none;
+
+    border-radius:50px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    position:absolute;
+
+    transition:.3s;
+
+}
+
+
+
+.yes-btn{
+
+
+    left:15%;
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #ff4081,
+        #ff85ad
+    );
+
+
+    color:white;
+
+
+    box-shadow:
+
+    0 10px 25px rgba(255,64,129,.35);
+
+}
+
+
+
+.no-btn{
+
+
+    right:15%;
+
+
+    background:white;
+
+
+    color:#ff4081;
+
+}
+
+
+
+.yes-btn:hover,
+.no-btn:hover{
+
+    transform:scale(1.08);
+
+}
+
+
+
+
+
+/* CHOICES */
+
+.choice-card{
+
+
+    width:90%;
+
+    margin:15px auto;
+
+
+    padding:22px;
+
+
+    border-radius:30px;
+
+
+    background:
+
+    rgba(255,255,255,.75);
+
+
+    color:#c2185b;
+
+
+    font-size:18px;
+
+
+    font-weight:700;
+
+
+    cursor:pointer;
+
+
+    box-shadow:
+
+    0 15px 35px rgba(0,0,0,.12);
+
+
+    transition:.35s;
+
+
+}
+
+
+
+.choice-card:hover{
+
+
+    transform:
+
+    translateY(-8px)
+    scale(1.03);
+
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #ff4081,
+        #ff85ad
+    );
+
+
+    color:white;
+
+
+}
+
+
+
+
+
+/* CALENDAR */
+
+
+.calendar-box{
+
+
+    margin-top:20px;
+
+
+    padding:25px;
+
+
+    border-radius:35px;
+
+
+    background:
+
+    rgba(255,255,255,.8);
+
+
+    box-shadow:
+
+    0 20px 45px rgba(194,24,91,.15);
+
+
+}
+
+
+
+.calendar-header{
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+
+}
+
+
+
+.calendar-header button{
+
+
+    width:42px;
+
+    height:42px;
+
+
+    border:none;
+
+
+    border-radius:50%;
+
+
+    background:#ff85ad;
+
+
+    color:white;
+
+
+    font-size:25px;
+
+
+    cursor:pointer;
+
+
+}
+
+
+
+.month-name{
+
+
+    color:#c2185b;
+
+    font-size:24px;
+
+    font-weight:700;
+
+
+}
+
+
+
+
+
+.weekdays{
+
+
+    display:grid;
+
+
+    grid-template-columns:repeat(7,1fr);
+
+
+    gap:8px;
+
+
+    margin:20px 0 10px;
+
+
+    color:#d63384;
+
+
+    font-size:13px;
+
+
+}
+
+
+
+.days{
+
+
+    display:grid;
+
+
+    grid-template-columns:repeat(7,1fr);
+
+
+    gap:10px;
+
+
+}
+
+
+
+.day{
+
+
+    height:42px;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    border-radius:50%;
+
+
+    background:white;
+
+
+    color:#c2185b;
+
+
+    cursor:pointer;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+.day:hover{
+
+
+    background:#ffd1e3;
+
+
+    transform:scale(1.15);
+
+
+}
+
+
+
+
+/* DATAT E KALUARA */
+
+.day.disabled{
+
+
+    opacity:.25;
+
+
+    pointer-events:none;
+
+
+    background:#eeeeee;
+
+
+    color:#999;
+
+
+    cursor:not-allowed;
+
+
+}
+
+
+
+
+
+/* TIME */
+
+.time-grid{
+
+
+    display:grid;
+
+
+    grid-template-columns:repeat(2,1fr);
+
+
+    gap:18px;
+
+
+    margin-top:25px;
+
+
+}
+
+
+
+.time-card{
+
+
+    height:125px;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+
+    border-radius:30px;
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.9),
+        rgba(255,210,230,.8)
+    );
+
+
+    color:#c2185b;
+
+
+    font-size:17px;
+
+
+    font-weight:700;
+
+
+    cursor:pointer;
+
+
+    transition:.35s;
+
+
+}
+
+
+
+.time-card:hover{
+
+
+    transform:
+
+    translateY(-8px)
+    scale(1.05);
+
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #ff4081,
+        #ff85ad
+    );
+
+
+    color:white;
+
+
+}
+
+
+
+
+
+/* FINAL */
+
+.final-title{
+
+
+    color:#ff4081;
+
+
+    font-size:45px;
+
+
+}
+
+
+
+.final-text{
+
+
+    font-size:20px;
+
+
+    line-height:1.8;
+
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.card{
+
+    padding:30px 20px;
+
+}
+
+
+
+h1{
+
+    font-size:32px;
+
+}
+
+
+
+.teddy{
+
+    font-size:85px;
+
+}
+
+
+
+.time-card{
+
+    height:110px;
+
+    font-size:15px;
+
+}
+
+
+}
