@@ -4,12 +4,16 @@ const hearts = document.getElementById("hearts");
 
 
 // ==========================
-// EMAILJS
+// EMAILJS SAFE INIT
 // ==========================
 
-emailjs.init({
-    publicKey: "48Ig_ee47ARSzdwUmGp23"
-});
+if (typeof emailjs !== "undefined") {
+
+    emailjs.init({
+        publicKey: "48Ig_ee47ARSzdwUmGp23"
+    });
+
+}
 
 
 // ==========================
@@ -26,7 +30,6 @@ let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 
 let currentPage = "home";
-
 
 
 
@@ -67,7 +70,7 @@ week:
 "Këtë javë 💗",
 
 surprise:
-"Me surprizo 🎁",
+"Më surprizo 🎁",
 
 
 calendar:
@@ -192,7 +195,7 @@ its:
 
 
 // ==========================
-// HEART ANIMATION
+// HEARTS
 // ==========================
 
 for(let i = 0; i < 40; i++){
@@ -204,16 +207,16 @@ for(let i = 0; i < 40; i++){
     heart.innerHTML = "❤";
 
     heart.style.left =
-    Math.random()*100 + "vw";
+    Math.random() * 100 + "vw";
 
     heart.style.fontSize =
-    15 + Math.random()*25 + "px";
+    15 + Math.random() * 25 + "px";
 
     heart.style.animationDuration =
-    5 + Math.random()*6 + "s";
+    5 + Math.random() * 6 + "s";
 
     heart.style.animationDelay =
-    Math.random()*5 + "s";
+    Math.random() * 5 + "s";
 
     hearts.appendChild(heart);
 
@@ -222,26 +225,33 @@ for(let i = 0; i < 40; i++){
 
 
 
-
 // ==========================
-// LANGUAGE BUTTON FIX
+// LANGUAGE SWITCH FIX
 // ==========================
 
-languageBtn.onclick = () => {
+languageBtn.addEventListener("click", function(){
 
 
-    language = language === "sq" ? "en" : "sq";
+    if(language === "sq"){
 
+        language = "en";
 
-    languageBtn.innerHTML =
-    language === "sq"
-    ? "🇬🇧 English"
-    : "🇦🇱 Shqip";
+        languageBtn.innerHTML = "🇦🇱 Shqip";
+
+    }
+    else{
+
+        language = "sq";
+
+        languageBtn.innerHTML = "🇬🇧 English";
+
+    }
 
 
     renderPage();
 
-};
+
+});
 
 // ==========================
 // PAGE SYSTEM
@@ -250,35 +260,44 @@ languageBtn.onclick = () => {
 function renderPage(){
 
 
-    switch(currentPage){
+    if(currentPage === "home"){
 
-        case "home":
-            home();
-            break;
-
-
-        case "choose":
-            choose();
-            break;
-
-
-        case "calendar":
-            renderCalendar();
-            break;
-
-
-        case "time":
-            showTimes();
-            break;
-
-
-        case "activity":
-            showActivities();
-            break;
+        home();
 
     }
 
+
+    if(currentPage === "choose"){
+
+        choose();
+
+    }
+
+
+    if(currentPage === "calendar"){
+
+        renderCalendar();
+
+    }
+
+
+    if(currentPage === "time"){
+
+        showTimes();
+
+    }
+
+
+    if(currentPage === "activity"){
+
+        showActivities();
+
+    }
+
+
 }
+
+
 
 
 
@@ -300,6 +319,7 @@ card.innerHTML = `
 </div>
 
 
+
 <h1>
 
 ${t[language].question}
@@ -307,11 +327,13 @@ ${t[language].question}
 </h1>
 
 
+
 <p>
 
 ${t[language].subtitle}
 
 </p>
+
 
 
 
@@ -323,6 +345,7 @@ ${t[language].subtitle}
 ${t[language].yes}
 
 </button>
+
 
 
 <button id="noBtn" class="no-btn">
@@ -340,12 +363,13 @@ ${t[language].no}
 
 
 
+
 // PO BUTTON FIX
 
 const yesBtn = document.getElementById("yesBtn");
 
 
-yesBtn.onclick = function(){
+yesBtn.addEventListener("click", function(){
 
 
     currentPage = "choose";
@@ -353,7 +377,8 @@ yesBtn.onclick = function(){
     renderPage();
 
 
-};
+});
+
 
 
 
@@ -361,6 +386,7 @@ yesBtn.onclick = function(){
 // JO BUTTON
 
 const noBtn = document.getElementById("noBtn");
+
 
 
 function moveNo(){
@@ -405,6 +431,7 @@ moveNo
 // CHOOSE PAGE
 // ==========================
 
+
 function choose(){
 
 
@@ -419,11 +446,13 @@ card.innerHTML = `
 
 
 
+
 <h1>
 
 ${t[language].when}
 
 </h1>
+
 
 
 
@@ -439,36 +468,57 @@ ${t[language].choose}
 
 <div class="choice-card" onclick="openCalendar()">
 
+
+
 🌙
+
 <br>
+
 
 ${t[language].tonight}
 
+
 </div>
+
+
 
 
 
 
 <div class="choice-card" onclick="openCalendar()">
 
+
+
 💗
+
 <br>
+
 
 ${t[language].week}
 
+
 </div>
+
+
+
 
 
 
 
 <div class="choice-card" onclick="openCalendar()">
 
+
+
 🎁
+
 <br>
+
 
 ${t[language].surprise}
 
+
 </div>
+
 
 
 
@@ -483,8 +533,11 @@ ${t[language].surprise}
 
 
 
+
+
+
 // ==========================
-// OPEN CALENDAR
+// CALENDAR OPEN
 // ==========================
 
 
@@ -504,45 +557,70 @@ renderPage();
 
 
 
+
+
 // ==========================
 // CALENDAR
 // ==========================
 
+
 function renderCalendar(){
 
 
-let firstDay =
-new Date(
+
+let firstDay = new Date(
+
 currentYear,
+
 currentMonth,
+
 1
+
 ).getDay();
 
 
 
-let totalDays =
-new Date(
+
+
+let totalDays = new Date(
+
 currentYear,
+
 currentMonth + 1,
+
 0
+
 ).getDate();
 
 
 
 
-let monthName =
-new Date(
+
+
+let monthName = new Date(
+
 currentYear,
+
 currentMonth
+
 )
+
 .toLocaleString(
+
 language === "sq"
+
 ? "sq-AL"
+
 : "en-US",
+
 {
+
 month:"long"
+
 }
+
 );
+
 
 
 
@@ -551,22 +629,33 @@ let days = "";
 
 
 
+
+
 for(let i=0;i<firstDay;i++){
 
+
 days += `<div></div>`;
+
 
 }
 
 
 
 
+
+
 let today = new Date();
+
 
 today.setHours(0,0,0,0);
 
 
 
+
+
+
 let maxDate = new Date();
+
 
 maxDate.setMonth(
 maxDate.getMonth()+3
@@ -576,21 +665,33 @@ maxDate.getMonth()+3
 
 
 
+
+
 for(let d=1; d<=totalDays; d++){
 
 
+
 let date = new Date(
+
 currentYear,
+
 currentMonth,
+
 d
+
 );
+
+
+
 
 
 
 if(date < today || date > maxDate){
 
 
+
 days += `
+
 
 <div class="day disabled">
 
@@ -598,27 +699,40 @@ ${d}
 
 </div>
 
+
 `;
+
+
 
 }
 
 else{
 
 
+
 days += `
 
-<div class="day" onclick="selectDay(${d})">
+
+<div class="day"
+
+onclick="selectDay(${d})">
 
 ${d}
 
 </div>
 
+
 `;
 
-}
 
 
 }
+
+
+
+}
+
+
 
 
 
@@ -626,11 +740,13 @@ ${d}
 card.innerHTML = `
 
 
+
 <div class="teddy">
 
 🧸
 
 </div>
+
 
 
 
@@ -643,16 +759,26 @@ ${t[language].calendar}
 
 
 
+
+
 <div class="calendar-box">
+
+
 
 
 
 <div class="calendar-header">
 
 
+
 <button onclick="changeMonth(-1)">
+
 ‹
+
 </button>
+
+
+
 
 
 
@@ -667,13 +793,21 @@ ${currentYear}
 
 
 
+
+
 <button onclick="changeMonth(1)">
+
 ›
+
 </button>
 
 
 
+
+
 </div>
+
+
 
 
 
@@ -694,18 +828,30 @@ ${currentYear}
 
 
 
+
+
+
 <div class="days">
+
 
 ${days}
 
+
+</div>
+
+
+
+
+
+
+
 </div>
 
 
-
-</div>
 
 
 `;
+
 
 
 }
@@ -748,8 +894,11 @@ today.getMonth(),
 let maxDate = new Date();
 
 maxDate.setMonth(
+
 maxDate.getMonth()+3
+
 );
+
 
 
 
@@ -759,6 +908,7 @@ if(newDate < minDate){
 return;
 
 }
+
 
 
 if(newDate > maxDate){
@@ -787,11 +937,13 @@ renderCalendar();
 
 
 
+
 // ==========================
 // SELECT DATE
 // ==========================
 
 window.selectDay = function(day){
+
 
 
 selectedDate =
@@ -832,6 +984,8 @@ currentYear;
 
 
 
+
+
 currentPage = "time";
 
 
@@ -848,10 +1002,10 @@ renderPage();
 
 
 
+
 // ==========================
 // TIME PAGE
 // ==========================
-
 
 function showTimes(){
 
@@ -878,13 +1032,17 @@ ${t[language].time}
 
 
 
+
 <div class="time-grid">
+
+
 
 
 
 <div class="time-card"
 
 onclick="setTime('08:00 - 10:30')">
+
 
 🌅
 
@@ -903,9 +1061,12 @@ ${language==="sq" ? "Mëngjes" : "Morning"}
 
 
 
+
+
 <div class="time-card"
 
 onclick="setTime('12:00 - 16:30')">
+
 
 ☀️
 
@@ -924,9 +1085,12 @@ ${language==="sq" ? "Drekë / Pasdite" : "Lunch / Afternoon"}
 
 
 
+
+
 <div class="time-card"
 
 onclick="setTime('17:00 - 21:00')">
+
 
 🌆
 
@@ -945,9 +1109,12 @@ ${language==="sq" ? "Mbrëmje" : "Evening"}
 
 
 
+
+
 <div class="time-card"
 
 onclick="setTime('21:30 - 00:00')">
+
 
 🌙
 
@@ -980,6 +1147,7 @@ ${language==="sq" ? "Natë vonë" : "Late night"}
 
 
 
+
 window.setTime = function(time){
 
 
@@ -1005,7 +1173,6 @@ renderPage();
 // ==========================
 // ACTIVITY PAGE
 // ==========================
-
 
 function showActivities(){
 
@@ -1045,6 +1212,7 @@ ${t[language].coffee}
 
 
 
+
 <div class="choice-card"
 
 onclick="finish('${t[language].movie}')">
@@ -1052,6 +1220,7 @@ onclick="finish('${t[language].movie}')">
 ${t[language].movie}
 
 </div>
+
 
 
 
@@ -1067,6 +1236,7 @@ ${t[language].picnic}
 
 
 
+
 <div class="choice-card"
 
 onclick="finish('${t[language].netflix}')">
@@ -1078,6 +1248,7 @@ ${t[language].netflix}
 
 
 
+
 <div class="choice-card"
 
 onclick="finish('${t[language].walk}')">
@@ -1085,6 +1256,7 @@ onclick="finish('${t[language].walk}')">
 ${t[language].walk}
 
 </div>
+
 
 
 
@@ -1114,7 +1286,7 @@ ${t[language].cook}
 
 
 // ==========================
-// FINAL + EMAILJS
+// FINAL + EMAIL
 // ==========================
 
 
@@ -1126,7 +1298,13 @@ selectedActivity = activity;
 
 
 
-// SEND EMAIL
+
+
+// SEND EMAIL SAFE
+
+
+if(typeof emailjs !== "undefined"){
+
 
 emailjs.send(
 
@@ -1136,27 +1314,39 @@ emailjs.send(
 
 {
 
-date: selectedDate,
 
-time: selectedTime,
+date:selectedDate,
 
-activity: selectedActivity
+time:selectedTime,
+
+activity:selectedActivity
+
 
 }
+
 
 )
 
 .then(function(){
 
+
 console.log("Email sent successfully ❤️");
+
 
 })
 
+
 .catch(function(error){
 
-console.log("Email error:", error);
+
+console.log("Email error:",error);
+
 
 });
+
+
+
+}
 
 
 
@@ -1179,6 +1369,7 @@ card.innerHTML = `
 
 
 
+
 <h1 class="final-title">
 
 
@@ -1191,6 +1382,8 @@ ${t[language].its}
 
 
 </h1>
+
+
 
 
 
@@ -1245,6 +1438,7 @@ ${t[language].date}
 
 
 
+
 `;
 
 
@@ -1258,8 +1452,9 @@ ${t[language].date}
 
 
 
+
 // ==========================
-// START
+// START APP
 // ==========================
 
 
