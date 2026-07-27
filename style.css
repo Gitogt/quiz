@@ -254,6 +254,8 @@ translateY(-15px);
 
 
 
+
+
 /* TEXT */
 
 
@@ -373,7 +375,10 @@ p{
 
 
 
-/* CHOICES */
+
+
+
+/* CHOICE CARDS */
 
 .choice-card{
 
@@ -441,6 +446,8 @@ p{
 
 
 }
+
+
 
 
 
@@ -535,6 +542,7 @@ p{
 
 
 
+
 .weekdays{
 
 
@@ -560,6 +568,8 @@ p{
 
 
 
+
+
 .days{
 
 
@@ -573,6 +583,7 @@ p{
 
 
 }
+
 
 
 
@@ -624,7 +635,6 @@ p{
 
 
 
-/* DATAT E KALUARA */
 
 .day.disabled{
 
@@ -650,7 +660,10 @@ p{
 
 
 
-/* TIME */
+
+
+/* TIME GRID */
+
 
 .time-grid{
 
@@ -668,6 +681,8 @@ p{
 
 
 }
+
+
 
 
 
@@ -721,6 +736,8 @@ p{
 
 
 
+
+
 .time-card:hover{
 
 
@@ -749,7 +766,10 @@ p{
 
 
 
+
+
 /* FINAL */
+
 
 .final-title{
 
@@ -774,6 +794,8 @@ p{
 
 
 }
+
+
 
 
 
